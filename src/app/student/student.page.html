@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-icon name="sparkles"></ion-icon>
+    </ion-buttons>
+    <ion-title>Light of the Future</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+
+  <!-- Using Ionic searchbar to 
+  search based on student name -->
+
+  <ion-searchbar
+    placeholder="Enter name"
+    [(ngModel)]="StudentName"
+  ></ion-searchbar>
+
+  <!-- Using ionic refresher for 
+  pull to refresh functionality -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event);">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+
+    <!-- Using ngfor to loop students array 
+    and using filter pipe to filter data
+    based on student name -->
+
+    <ion-item
+      *ngFor="let student of students | filter:StudentName"
+      (click)="studentDetail(student.id)"
+    >
+      <ion-avatar slot="start">
+        <ion-img [src]="student.student_img"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{student.student_name}}</h2>
+        <p><strong>Course :-</strong> {{student.course_name}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Using ionic infinite scroller to load more data when required -->
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

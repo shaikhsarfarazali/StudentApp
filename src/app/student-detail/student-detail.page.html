@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="student"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ studentDetail.student_name || 'Student Detail' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-img [src]="studentDetail.student_img"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Course Name :-</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content> {{studentDetail.course_name}} </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Address :-</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{studentDetail.student_address}}
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Subject :-</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content
+            *ngFor="let subject of studentDetail.subject | keyvalue; let i=index"
+          >
+            <span>{{i+1}}. {{subject.key | titlecase }} : </span
+            >{{subject.value}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
